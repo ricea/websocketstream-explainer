@@ -15,7 +15,7 @@ important feature of
   event will keep firing until the page becomes completely unresponsive. The
   user agent will buffer incoming messages until it runs out of memory and
   crashes.
-* The only way to determine when the network or remote server can°«t keep up
+* The only way to determine when the network or remote server can‚Äôt keep up
   with your sent messages is to test the
   [bufferedAmount](https://html.spec.whatwg.org/multipage/web-sockets.html#dom-websocket-bufferedamount)
   attribute. To find out when it is safe to start sending messages again, it is
@@ -23,7 +23,7 @@ important feature of
 
 WebSocketStream aims to solve these deficiencies with a new API.
 
-Here°«s a basic example of usage of the new API:
+Here‚Äôs a basic example of usage of the new API:
 
 ```javascript
 const wss = new WebSocketStream(url);
@@ -42,7 +42,7 @@ ws.onmessage = evt => process(evt.data);
 ws.onclose => evt => evt.wasClean ? done() : signalErrorSomehow();
 ```
 
-The major difference is that the second example won°«t wait for `process()` to
+The major difference is that the second example won‚Äôt wait for `process()` to
 complete before calling it again; it will keep hammering it as long as messages
 keep arriving.
 
@@ -50,7 +50,7 @@ Also note that because this API was designed before Promises were added to the
 language, error-handling is awkward.
 
 The second argument to WebSocketStream is an option bag to allow for future
-extension. Currently the only option is °»protocols°…, which behaves the same as
+extension. Currently the only option is ‚Äúprotocols‚Äù, which behaves the same as
 the second argument to the WebSocket constructor:
 
 ```javascript
@@ -59,7 +59,7 @@ const { protocol } = await wss.connection;
 ```
 
 The selected protocol is part of the dictionary available via the wss.connection
-promise, along with °»extensions°…. All the information about the live
+promise, along with ‚Äúextensions‚Äù. All the information about the live
 connection is provided by this promise, since it is not relevant if the
 connection failed.
 
@@ -68,7 +68,7 @@ const { readable, writable, protocol, extensions } = await wss.connection;
 ```
 
 The information that was available from the onclose and onerror events in the
-old API is now available via the °»closed°… Promise. This rejects in the event
+old API is now available via the ‚Äúclosed‚Äù Promise. This rejects in the event
 of an unclean close, otherwise it resolves to the code and reason sent by the
 server.
 
@@ -142,7 +142,7 @@ capabilities of the client, providing everyone with a smooth experience.
 
 ## Alternatives
 
-It°«s possible to implement backpressure at the application level, but it°«s
+It‚Äôs possible to implement backpressure at the application level, but it‚Äôs
 complex and difficult to achieve peak throughput. For example, client JavaScript
 could send an application-level confirmation message to the server every time it
 finishes processing a message. The server could keep track of how many messages
