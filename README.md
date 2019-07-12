@@ -42,9 +42,9 @@ ws.onmessage = evt => process(evt.data);
 ws.onclose => evt => evt.wasClean ? done() : signalErrorSomehow();
 ```
 
-The major difference is that the second example won’t wait for `process()` to
-complete before calling it again; it will keep hammering it as long as messages
-keep arriving.
+The major difference is that the second example won’t wait for asynchronous
+activity in `process()` to complete before calling it again; it will keep
+hammering it as long as messages keep arriving.
 
 Also note that because this API was designed before Promises were added to the
 language, error-handling is awkward.
@@ -115,6 +115,12 @@ wss.close({code: 4000, reason: 'Game over'});
   [WebTransport](https://github.com/WICG/web-transport/blob/master/explainer.md)
   is being discussed, and it is expected that new network capabilities will be
   added there.
+* Allowing user JavaScript to select [WebSocket
+  extensions](https://tools.ietf.org/html/rfc6455#page-48). Since the server
+  already negotiates the extensions to use, adding additional controls to client
+  JavaScript seems redundant. The existing JavaScript API has never supported
+  this, although some non-browser implementations have added options to the
+  constructor for it.
 
 
 ## Non-goals in the first version
@@ -122,6 +128,8 @@ wss.close({code: 4000, reason: 'Game over'});
 * Bring-your-own-buffer reading
 * Reading or writing individual messages as streams (for example, to handle
   messages larger than memory)
+* Exposing WebSocket [pings and
+  pongs](https://tools.ietf.org/html/rfc6455#page-37) to JavaScript.
 
 
 ## Use cases
