@@ -76,18 +76,16 @@ server.
 const { code, reason } = await wss.closed;
 ```
 
-A close method permits closing during the opening handshake, or with a specific
-code and reason.
+An AbortSignal passed to the constructor makes it simple to abort the handshake.
 
 ```javascript
-const wss = new WebSocketStream(url);
-let opened = false;
-setTimeout(() => {
-  if (!opened) wss.close();
-}, 1000);
-await wss.connection;
-opened = true;
+const controller = new AbortController();
+const wss = new WebSocketStream(url, { signal: controller.signal });
+setTimeout(() => controller.abort(), 1000);
 ```
+
+The close method can also be used to abort the handshake, but its main purpose
+is to permit specifying the code and reason which is sent to the server.
 
 ```javascript
 wss.close({code: 4000, reason: 'Game over'});
