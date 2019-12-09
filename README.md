@@ -28,8 +28,12 @@ Here’s a basic example of usage of the new API:
 ```javascript
 const wss = new WebSocketStream(url);
 const { readable } = await wss.connection;
-for await (const chunk of readable) {
-  await process(chunk);
+const reader = readable.getReader();
+while (true) {
+  const { value, done } = reader.read();
+  if (done)
+    break;
+  await process(value);
 }
 done();
 ```
@@ -46,8 +50,17 @@ The major difference is that the second example won’t wait for asynchronous
 activity in `process()` to complete before calling it again; it will keep
 hammering it as long as messages keep arriving.
 
-Also note that because this API was designed before Promises were added to the
-language, error-handling is awkward.
+Also note that because the old API was designed before Promises were added to
+the language, error-handling is awkward.
+
+Writing also uses the backpressure facilities of the Streams API:
+
+```javascript
+const wss = new WebSocketStream(url);
+const { writable } = await wss.connection;
+const writer = writable.getWriter();
+await writer.write(message);
+```
 
 The second argument to WebSocketStream is an option bag to allow for future
 extension. Currently the only option is “protocols”, which behaves the same as
