@@ -43,7 +43,7 @@ This is the roughly equivalent code with the old API:
 ```javascript
 const ws = new WebSocket(url);
 ws.onmessage = evt => process(evt.data);
-ws.onclose => evt => evt.wasClean ? done() : signalErrorSomehow();
+ws.onclose = evt => evt.wasClean ? done() : signalErrorSomehow();
 ```
 
 The major difference is that the second example won’t wait for asynchronous
