@@ -98,7 +98,7 @@ There is a 1:1 mapping between WebSocket messages and stream chunks.
 
 Each call to `read()` returns one WebSocket message. If a message is split into
 multiple frames on the wire, it won't be returned by `read()` until the final
-chunk (the one with the FIN flag set) arrives.
+frame (the one with the FIN flag set) arrives.
 
 When `read()` is not called, the browser and operating system will still buffer
 data to some extent, so backpressure will not be detected immediately by the
@@ -111,9 +111,10 @@ A clean close will result in `read()` returning an object with `done` set to
 true. An unclean close will result in a rejected promise.
 
 Each call to `write()` (or chunk that is piped into the `writable`) will be
-converted to one message. BufferSource (ArrayBuffer or TypedArray) objects will
-be sent as binary WebSocket messages. Any other type will be converted to a
-string and sent as a text message.
+converted to one message. The browser may split the message into multiple
+frames. BufferSource (ArrayBuffer or TypedArray) objects will be sent as binary
+WebSocket messages. Any other type will be converted to a string and sent as a
+text message.
 
 The promise returned by `write()` will resolve when the message has been
 buffered (either by the browser or operating system). The size of the buffer is
