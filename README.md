@@ -59,7 +59,7 @@ Writing also uses the backpressure facilities of the Streams API:
 const wss = new WebSocketStream(url);
 const { writable } = await wss.connection;
 const writer = writable.getWriter();
-for (const message of messages) {
+for await (const message of messages) {
   await writer.write(message);
 }
 ```
