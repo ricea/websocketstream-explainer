@@ -30,7 +30,7 @@ const wss = new WebSocketStream(url);
 const { readable } = await wss.connection;
 const reader = readable.getReader();
 while (true) {
-  const { value, done } = reader.read();
+  const { value, done } = await reader.read();
   if (done)
     break;
   await process(value);
