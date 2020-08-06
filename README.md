@@ -99,13 +99,38 @@ const wss = new WebSocketStream(url, { signal: controller.signal });
 setTimeout(() => controller.abort(), 1000);
 ```
 
-The close method can also be used to abort the handshake, but its main purpose
-is to permit specifying the code and reason which is sent to the server.
+The close method can also be used to abort the handshake. Once the connection is
+established, it can be used to specify the code and reason which is sent to the
+server.
 
 ```javascript
 wss.close({code: 4000, reason: 'Game over'});
 ```
 
+A similar result can be achieved with the `readable` `cancel()` method and the
+`writable` `abort()` method. Examples:
+
+```javascript
+// If the writable stream is not locked.
+wss.writable.abort({code: 4001, reason: 'Something bad happened'});
+
+// If you hold a writer on the writable.
+writer.abort({code: 4002, reason: 'Time to go'});
+
+// If the readable stream is not locked.
+wss.readable.cancel({code: 1000, reason: 'Done'});
+
+// If you hold a reader on the readable.
+reader.cancel({code: 4010, reason: 'Goodbye'});
+```
+
+If the value passed to `cancel()` or `abort()` is missing, not an object, or
+there is no "code" attribute, this special treatment doesn't happen, and a
+default empty Close frame is sent to the server.
+
+```javascript
+writable.abort('not sent to server');
+```
 
 ## Mapping to the protocol
 
