@@ -125,7 +125,7 @@ reader.cancel({code: 4010, reason: 'Goodbye'});
 ```
 
 If the value passed to `cancel()` or `abort()` is missing, not an object, or
-there is no "code" attribute, this special treatment doesn't happen, and a
+there is no "code" attribute, this special treatment doesn't apply, and a
 default empty Close frame is sent to the server.
 
 ```javascript
