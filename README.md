@@ -27,7 +27,7 @@ Here’s a basic example of usage of the new API:
 
 ```javascript
 const wss = new WebSocketStream(url);
-const { readable } = await wss.connection;
+const { readable } = await wss.opened;
 const reader = readable.getReader();
 while (true) {
   const { value, done } = await reader.read();
@@ -57,7 +57,7 @@ Writing also uses the backpressure facilities of the Streams API:
 
 ```javascript
 const wss = new WebSocketStream(url);
-const { writable } = await wss.connection;
+const { writable } = await wss.opened;
 const writer = writable.getWriter();
 for await (const message of messages) {
   await writer.write(message);
@@ -70,16 +70,16 @@ the second argument to the WebSocket constructor:
 
 ```javascript
 const wss = new WebSocketStream(url, {protocols: ['chat', 'chatv2']});
-const { protocol } = await wss.connection;
+const { protocol } = await wss.opened;
 ```
 
 The selected protocol is part of the dictionary available via the
-`wss.connection` promise, along with “extensions”. All the information about
+`wss.opened` promise, along with “extensions”. All the information about
 the live connection is provided by this promise, since it is not relevant if the
 connection failed.
 
 ```javascript
-const { readable, writable, protocol, extensions } = await wss.connection;
+const { readable, writable, protocol, extensions } = await wss.opened;
 ```
 
 The information that was available from the onclose and onerror events in the
