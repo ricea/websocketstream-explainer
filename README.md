@@ -120,7 +120,7 @@ data to some extent, so backpressure will not be detected immediately by the
 server.
 
 Text messages appear in JavaScript as strings. Binary messages appear as
-UInt8Array objects.
+Uint8Array objects.
 
 A clean close will result in `read()` returning an object with `done` set to
 true. An unclean close will result in a rejected promise.
@@ -216,7 +216,7 @@ near future the WebSocket protocol has the advantage that it works on networks
 that block QUIC, and has much existing deployed infrastructure.
 
 An older version of this explainer had the readable stream producing ArrayBuffer
-chunks. This was changed to UInt8Array chunks to align better with WebTransport
+chunks. This was changed to Uint8Array chunks to align better with WebTransport
 and modern practice.
 
 
