@@ -65,8 +65,8 @@ for await (const message of messages) {
 ```
 
 The second argument to WebSocketStream is an option bag to allow for future
-extension. Currently the only option is “protocols”, which behaves the same as
-the second argument to the WebSocket constructor:
+extension. One option is “protocols”, which behaves the same as the second
+argument to the WebSocket constructor:
 
 ```javascript
 const wss = new WebSocketStream(url, {protocols: ['chat', 'chatv2']});
