@@ -88,7 +88,7 @@ of an unclean close, otherwise it resolves to the code and reason sent by the
 server.
 
 ```javascript
-const { code, reason } = await wss.closed;
+const { closeCode, reason } = await wss.closed;
 ```
 
 An AbortSignal passed to the constructor makes it simple to abort the handshake.
@@ -103,7 +103,7 @@ The close method can also be used to abort the handshake, but its main purpose
 is to permit specifying the code and reason which is sent to the server.
 
 ```javascript
-wss.close({code: 4000, reason: 'Game over'});
+wss.close({closeCode: 4000, reason: 'Game over'});
 ```
 
 
@@ -218,6 +218,9 @@ that block QUIC, and has much existing deployed infrastructure.
 An older version of this explainer had the readable stream producing ArrayBuffer
 chunks. This was changed to Uint8Array chunks to align better with WebTransport
 and modern practice.
+
+Previously the `closeCode` attribute was called `code`, but this conflicted with
+the `code` attribute of `DOMException`.
 
 
 ## Future work
