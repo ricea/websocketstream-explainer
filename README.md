@@ -231,5 +231,5 @@ and modern practice.
 ## See also
 
 * [WebSocketStream design
-    notes](https://drive.google.com/a/chromium.org/open?id=1La1ehXw76HP6n1uUeks-WJGFgAnpX2tCjKts7QFJ57Y)
+    notes](https://docs.google.com/document/d/1La1ehXw76HP6n1uUeks-WJGFgAnpX2tCjKts7QFJ57Y/edit)
     for definition of the new API and technical details.
