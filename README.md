@@ -88,22 +88,20 @@ of an unclean close, otherwise it resolves to the code and reason sent by the
 server.
 
 ```javascript
-const { code, reason } = await wss.closed;
+const { closeCode, reason } = await wss.closed;
 ```
 
 An AbortSignal passed to the constructor makes it simple to abort the handshake.
 
 ```javascript
-const controller = new AbortController();
-const wss = new WebSocketStream(url, { signal: controller.signal });
-setTimeout(() => controller.abort(), 1000);
+const wss = new WebSocketStream(url, { signal: AbortSignal.timeout(1000) });
 ```
 
 The close method can also be used to abort the handshake, but its main purpose
 is to permit specifying the code and reason which is sent to the server.
 
 ```javascript
-wss.close({code: 4000, reason: 'Game over'});
+wss.close({closeCode: 4000, reason: 'Game over'});
 ```
 
 
@@ -156,11 +154,11 @@ errored.
   sending Blobs adds considerable complexity to the implementation because the
   contents are not available synchronously. Since less than 4% of sent messages
   are Blobs it is better to avoid this complexity where we can.
-* Changing, replacing or extending the underlying network protocol. A new API
-  based on QUIC called
-  [WebTransport](https://github.com/WICG/web-transport/blob/master/explainer.md)
-  is being discussed, and it is expected that new network capabilities will be
-  added there.
+* Changing, replacing or extending the underlying network protocol.
+  [WebTransport](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport)
+  has many advanced features that are not supported by the WebSocket protocol,
+  such as datagram support over UDP. It should be preferred when advanced
+  networking features are required.
 * Allowing user JavaScript to select [WebSocket
   extensions](https://tools.ietf.org/html/rfc6455#page-48). Since the server
   already negotiates the extensions to use, adding additional controls to client
@@ -218,6 +216,9 @@ that block QUIC, and has much existing deployed infrastructure.
 An older version of this explainer had the readable stream producing ArrayBuffer
 chunks. This was changed to Uint8Array chunks to align better with WebTransport
 and modern practice.
+
+Previously the `closeCode` attribute was called `code`, but this conflicted with
+the `code` attribute of `DOMException`.
 
 
 ## Future work
