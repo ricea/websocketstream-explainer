@@ -156,11 +156,11 @@ errored.
   sending Blobs adds considerable complexity to the implementation because the
   contents are not available synchronously. Since less than 4% of sent messages
   are Blobs it is better to avoid this complexity where we can.
-* Changing, replacing or extending the underlying network protocol. A new API
-  based on QUIC called
-  [WebTransport](https://github.com/WICG/web-transport/blob/master/explainer.md)
-  is being discussed, and it is expected that new network capabilities will be
-  added there.
+* Changing, replacing or extending the underlying network protocol.
+  [WebTransport](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport)
+  has many advanced features that are not supported by the WebSocket protocol,
+  such as datagram support over UDP/IP. It should be preferred when advanced
+  networking features are required.
 * Allowing user JavaScript to select [WebSocket
   extensions](https://tools.ietf.org/html/rfc6455#page-48). Since the server
   already negotiates the extensions to use, adding additional controls to client
