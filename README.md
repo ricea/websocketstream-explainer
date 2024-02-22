@@ -157,7 +157,7 @@ errored.
 * Changing, replacing or extending the underlying network protocol.
   [WebTransport](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport)
   has many advanced features that are not supported by the WebSocket protocol,
-  such as datagram support over UDP/IP. It should be preferred when advanced
+  such as datagram support over UDP. It should be preferred when advanced
   networking features are required.
 * Allowing user JavaScript to select [WebSocket
   extensions](https://tools.ietf.org/html/rfc6455#page-48). Since the server
