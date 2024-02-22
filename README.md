@@ -94,9 +94,7 @@ const { closeCode, reason } = await wss.closed;
 An AbortSignal passed to the constructor makes it simple to abort the handshake.
 
 ```javascript
-const controller = new AbortController();
-const wss = new WebSocketStream(url, { signal: controller.signal });
-setTimeout(() => controller.abort(), 1000);
+const wss = new WebSocketStream(url, { signal: AbortSignal.timeout(1000) });
 ```
 
 The close method can also be used to abort the handshake, but its main purpose
